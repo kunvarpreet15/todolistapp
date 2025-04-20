@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity() {
                 false // don't consume
             }
         }
-
-        val editTextTask = findViewById<EditText>(R.id.editTextTask)
         val buttonAdd = findViewById<Button>(R.id.buttonAdd)
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewTasks)
 
@@ -57,11 +55,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = taskAdapter
 
         buttonAdd.setOnClickListener {
-            val taskTitle = editTextTask.text.toString().trim()
+            val taskTitle = taskInput.text.toString().trim()
             if (taskTitle.isNotEmpty()) {
                 taskList.add(Task(taskTitle))
                 taskAdapter.notifyItemInserted(taskList.size - 1)
-                editTextTask.text.clear()
+                taskInput.text.clear()
                 updateEmptyView()
             }
         }

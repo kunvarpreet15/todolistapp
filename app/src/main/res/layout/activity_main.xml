@@ -5,21 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp">
+
     <EditText
         android:id="@+id/editTextTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter a new task"
+        android:hint="@string/enter_a_new_task"
         android:imeOptions="actionDone"
         android:inputType="text"
-        />
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A" />
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFD700"
-        android:text="Add Task"
+        android:text="@string/add_task"
         android:textColor="#000000"
         />
 
@@ -27,13 +29,15 @@
         android:id="@+id/recyclerViewTasks"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:contentDescription="@string/tasks_here"
+        />
     <TextView
         android:id="@+id/emptyView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="No tasks yet!"
+        android:text="@string/no_tasks_yet"
         android:textSize="18sp"
         android:visibility="gone" />
 </LinearLayout>

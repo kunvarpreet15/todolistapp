@@ -18,11 +18,12 @@
         android:layout_weight="1"
         android:paddingStart="8dp"
         android:textSize="18sp" />
+
     <Button
         android:id="@+id/buttonDelete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FF5252"
-        android:text="Delete"
-        />
+        android:text="@string/delete"
+        android:textColor="#212121" />
 </LinearLayout>
