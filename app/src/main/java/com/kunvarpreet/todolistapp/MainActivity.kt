@@ -57,8 +57,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = taskAdapter
 
         buttonAdd.setOnClickListener {
-            val taskTitle = editTextTask.text.toString()
-            if (taskTitle.isNotBlank()) {
+            val taskTitle = editTextTask.text.toString().trim()
+            if (taskTitle.isNotEmpty()) {
                 taskList.add(Task(taskTitle))
                 taskAdapter.notifyItemInserted(taskList.size - 1)
                 editTextTask.text.clear()
