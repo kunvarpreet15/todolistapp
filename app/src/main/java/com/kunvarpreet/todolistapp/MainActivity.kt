@@ -7,13 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var taskAdapter: TaskAdapter
     private val taskList = mutableListOf<Task>()
-
+    private fun updateEmptyView() {
+        val emptyView = findViewById<TextView>(R.id.emptyView)
+        emptyView.visibility = if (taskList.isEmpty()) View.VISIBLE else View.GONE
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -44,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             if (position != RecyclerView.NO_POSITION) {
                 taskList.removeAt(position)
                 taskAdapter.notifyItemRemoved(position)
+                updateEmptyView()
             }
         }
 
@@ -56,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 taskList.add(Task(taskTitle))
                 taskAdapter.notifyItemInserted(taskList.size - 1)
                 editTextTask.text.clear()
+                updateEmptyView()
             }
         }
     }
