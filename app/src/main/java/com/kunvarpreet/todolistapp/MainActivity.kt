@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                 taskList.add(Task(taskTitle))
                 taskAdapter.notifyItemInserted(taskList.size - 1)
                 editTextTask.text.clear()
+                updateEmptyView()
             }
         }
     }
