@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,32 +19,36 @@
         android:textColor="#FFFFFF"
         android:textSize="26sp"
         android:textStyle="bold"/>
+
     <EditText
         android:id="@+id/editTextTask"
-        android:layout_width="match_parent"
+        android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:hint="Enter a new task"
+        android:hint="@string/enter_a_new_task"
         android:imeOptions="actionDone"
-        android:inputType="text" />
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#546E7A"
+        tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/buttonPickDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick Date" />
+        android:text="@string/pick_date" />
 
     <Button
         android:id="@+id/buttonPickTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pick Time" />
+        android:text="@string/pick_time" />
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFD700"
-        android:text="Add Task"
+        android:text="@string/add_task"
         android:textColor="#000000" />
 
 

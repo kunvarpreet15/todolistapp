@@ -19,8 +19,6 @@ class TaskAdapter(
         val taskCheckbox: CheckBox = itemView.findViewById(R.id.task_checkbox)
         val deleteButton: Button = itemView.findViewById(R.id.buttonDelete)
     }
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
         return TaskViewHolder(view)

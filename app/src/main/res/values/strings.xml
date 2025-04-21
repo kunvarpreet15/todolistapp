@@ -7,4 +7,6 @@
     <string name="tasks_here">Tasks here</string>
     <string name="delete">Delete</string>
     <string name="my_to_do_list">📝 My To-Do List</string>
+    <string name="pick_date">Pick Date</string>
+    <string name="pick_time">Pick Time</string>
 </resources>

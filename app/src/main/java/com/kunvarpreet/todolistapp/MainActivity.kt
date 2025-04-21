@@ -3,16 +3,19 @@ package com.kunvarpreet.todolistapp
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.Calendar
+import java.util.Locale
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +25,29 @@ class MainActivity : AppCompatActivity() {
         val emptyView = findViewById<TextView>(R.id.emptyView)
         emptyView.visibility = if (taskList.isEmpty()) View.VISIBLE else View.GONE
     }
+    private fun saveTasks() {
+        val sharedPreferences = getSharedPreferences("task_prefs", MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        val gson = Gson()
+        val json = gson.toJson(taskList)
+
+        editor.putString("task_list", json)
+        editor.apply()
+    }
+    private fun loadTasks() {
+        val sharedPreferences = getSharedPreferences("task_prefs", MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString("task_list", null)
+
+        if (json != null) {
+            val type = object : TypeToken<MutableList<Task>>() {}.type
+            val loadedTasks: MutableList<Task> = gson.fromJson(json, type)
+            taskList.clear()
+            taskList.addAll(loadedTasks)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,9 +67,9 @@ class MainActivity : AppCompatActivity() {
                     taskAdapter.notifyItemInserted(taskList.size - 1)
                     taskInput.text.clear()
                 }
-                true // consume the event
+                true
             } else {
-                false // don't consume
+                false
             }
         }
         val buttonAdd = findViewById<Button>(R.id.buttonAdd)
@@ -54,9 +80,10 @@ class MainActivity : AppCompatActivity() {
                 taskList.removeAt(position)
                 taskAdapter.notifyItemRemoved(position)
                 updateEmptyView()
+                saveTasks()
             }
         }
-
+        loadTasks()
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = taskAdapter
 
@@ -67,6 +94,7 @@ class MainActivity : AppCompatActivity() {
                 taskAdapter.notifyItemInserted(taskList.size - 1)
                 taskInput.text.clear()
                 updateEmptyView()
+                saveTasks()
             }
         }
         buttonPickDate.setOnClickListener {
@@ -86,7 +114,7 @@ class MainActivity : AppCompatActivity() {
             val calendar = Calendar.getInstance()
             val timePicker = TimePickerDialog(this,
                 { _, hourOfDay, minute ->
-                    selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                    selectedTime = String.format(Locale.US,"%02d:%02d", hourOfDay, minute)
                     buttonPickTime.text = selectedTime
                 },
                 calendar.get(Calendar.HOUR_OF_DAY),
