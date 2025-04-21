@@ -1,5 +1,7 @@
 package com.kunvarpreet.todolistapp
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -10,6 +12,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import java.util.Calendar
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +25,10 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        var selectedDate = ""
+        var selectedTime = ""
+        val buttonPickDate = findViewById<Button>(R.id.buttonPickDate)
+        val buttonPickTime = findViewById<Button>(R.id.buttonPickTime)
         val taskInput = findViewById<EditText>(R.id.editTextTask)
 
         taskInput.setOnEditorActionListener { v, actionId, event ->
@@ -57,11 +63,37 @@ class MainActivity : AppCompatActivity() {
         buttonAdd.setOnClickListener {
             val taskTitle = taskInput.text.toString().trim()
             if (taskTitle.isNotEmpty()) {
-                taskList.add(Task(taskTitle))
+                taskList.add(Task(taskTitle.trim(), selectedDate, selectedTime))
                 taskAdapter.notifyItemInserted(taskList.size - 1)
                 taskInput.text.clear()
                 updateEmptyView()
             }
+        }
+        buttonPickDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val datePicker = DatePickerDialog(this,
+                { _, year, month, dayOfMonth ->
+                    selectedDate = "$dayOfMonth/${month + 1}/$year"
+                    buttonPickDate.text = selectedDate
+                },
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            )
+            datePicker.show()
+        }
+        buttonPickTime.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val timePicker = TimePickerDialog(this,
+                { _, hourOfDay, minute ->
+                    selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+                    buttonPickTime.text = selectedTime
+                },
+                calendar.get(Calendar.HOUR_OF_DAY),
+                calendar.get(Calendar.MINUTE),
+                true
+            )
+            timePicker.show()
         }
     }
 }

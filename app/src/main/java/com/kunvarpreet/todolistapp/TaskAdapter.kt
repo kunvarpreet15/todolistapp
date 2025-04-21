@@ -15,9 +15,11 @@ class TaskAdapter(
 
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val taskTitle: TextView = itemView.findViewById(R.id.task_title)
+        val taskDateTime: TextView = itemView.findViewById(R.id.task_datetime)
         val taskCheckbox: CheckBox = itemView.findViewById(R.id.task_checkbox)
         val deleteButton: Button = itemView.findViewById(R.id.buttonDelete)
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.task_item, parent, false)
@@ -30,7 +32,11 @@ class TaskAdapter(
         holder.taskCheckbox.setOnCheckedChangeListener(null)
         holder.taskTitle.text = task.title
         holder.taskCheckbox.isChecked = task.isDone
-
+        if (task.date.isNotEmpty() || task.time.isNotEmpty()) {
+            holder.taskDateTime.text = "${task.date} ${task.time}"
+        } else {
+            holder.taskDateTime.text = "" // or "No deadline"
+        }
         holder.taskTitle.paintFlags = if (task.isDone)
             holder.taskTitle.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         else

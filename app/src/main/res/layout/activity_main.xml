@@ -22,20 +22,30 @@
         android:id="@+id/editTextTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/enter_a_new_task"
+        android:hint="Enter a new task"
         android:imeOptions="actionDone"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColorHint="#546E7A" />
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/buttonPickDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Date" />
+
+    <Button
+        android:id="@+id/buttonPickTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pick Time" />
 
     <Button
         android:id="@+id/buttonAdd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#FFD700"
-        android:text="@string/add_task"
-        android:textColor="#000000"
-        />
+        android:text="Add Task"
+        android:textColor="#000000" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTasks"
